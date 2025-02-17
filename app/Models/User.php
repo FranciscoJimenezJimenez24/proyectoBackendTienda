@@ -18,8 +18,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nombre_user',
         'email',
+        'rol_id',
+        'token',
         'password',
     ];
 
@@ -42,4 +44,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function createUserToken()
+    {
+        return $this->createToken('token')->plainTextToken;
+    }
 }
