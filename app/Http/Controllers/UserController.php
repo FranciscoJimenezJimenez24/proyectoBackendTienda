@@ -7,26 +7,14 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /*
-        Schema::create('users', function (Blueprint $table) {
-        $table->id();
-        $table->string('nombre_user');
-        $table->string('email');
-        $table->foreignId('rol_id')->constrained();
-        $table->string('token');
-        $table->timestamp('email_verified_at')->nullable();
-        $table->string('password');
-        $table->rememberToken();
-        $table->timestamps();
-    });
-    */
     public function register(Request $request)
     {
         $request->validate([
             'nombre_user' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255',
             'rol_id' => 'required|integer',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|confirmed',
+            'token' => 'required|string',
         ]);
 
         $user = User::create([
@@ -34,14 +22,9 @@ class UserController extends Controller
             'email' => $request['email'],
             'rol_id' => $request['rol_id'],
             'password' => bcrypt($request['password']),
+            'token' => $request['token'],
         ]);
-
-        $token = $user->createUserToken();
-
-        $userWithToken = $user->only(['id', 'nombre_user', 'email', 'rol_id']);
-        $userWithToken['token'] = $token;
-
-        return response()->json(['user' => $userWithToken], 200);
+        return response()->json(['user' => $user], 200);
     }
 
 
@@ -54,17 +37,7 @@ class UserController extends Controller
 
         $user = User::where('email', request('email'))->first();
 
-        if (!$user || !password_verify(request('password'), $user->password)) {
-            return response()->json([
-                'error' => 'Unauthorized',
-            ], 401);
-        }
-
-        return response()->json([
-            'user' => $user->only(['id', 'nombre_user', 'email', 'rol_id']),
-            'access_token' => $user->token,
-            'token_type' => 'Bearer',
-        ]);
+        return response()->json($user,200);
     }
 
     public function logout()

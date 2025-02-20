@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class VentaController extends Controller
 {
+
+    public function verVentas()
+    {
+        $ventas = Venta::all();
+        return response()->json($ventas,200);
+    }
     public function registrarVenta(Request $request)
     {
         $request->validate([
