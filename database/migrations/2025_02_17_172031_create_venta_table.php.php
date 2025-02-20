@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('id_usuario')->constrained('users');
             $table->json('lista_productos');
             $table->integer('total');
+            $table->enum('estado_venta', ['finalizado', 'curso']);
             $table->timestamps();
         });
     }

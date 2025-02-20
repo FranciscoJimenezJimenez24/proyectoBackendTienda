@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
+    public function index()
+    {
+        return "hola";
+    }
     public function addProducto(Request $request)
     {
         $request->validate([

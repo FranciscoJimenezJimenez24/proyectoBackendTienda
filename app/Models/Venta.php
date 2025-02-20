@@ -17,5 +17,6 @@ class Venta extends Model
         'usuario_id',
         'lista_productos',
         'total',
+        'estado_venta',
     ];
 }
