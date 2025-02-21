@@ -10,7 +10,7 @@ class VentaController extends Controller
 
     public function verVentas()
     {
-        $ventas = Venta::where('estado_venta', 'finalizada')->get();
+        $ventas = Venta::where('estado_venta', 'finalizado')->get();
         if ($ventas->isEmpty()) {
             return response()->json(['message' => 'No se encontraron ventas'], 404);
         }else{

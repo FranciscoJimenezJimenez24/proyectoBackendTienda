@@ -30,7 +30,7 @@ Route::get('venta/curso/{id_usuario}',[VentaController::class, 'verVentasPorUsua
 Route::get('venta/finalizada',[VentaController::class, 'verVentas']);
 Route::post('venta/add',[VentaController::class, 'registrarVenta']);
 Route::put('venta/edit',[VentaController::class, 'updateVenta']);
-Route::put('venta/delete/{id}',[VentaController::class, 'deleteVenta']);
+Route::delete('venta/delete/{id}',[VentaController::class, 'deleteVenta']);
 Route::post('roles',[RolController::class, 'addRol']);
 Route::get('roles',[RolController::class, 'getRoles']);
 
